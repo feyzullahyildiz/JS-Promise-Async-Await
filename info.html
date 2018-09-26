@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>INFO</title>
+</head>
+<style>
+code {
+    font-family: monospace;
+    display: block;
+    white-space: pre-wrap;
+    background-color: gray;
+    color: white;
+    padding: 10px;
+    border: solid 2px black;
+}
+
+
+</style>
+<body>
+    
+    <div>
+        <code>
+$('#model').on('change',function(){
+
+
+var modelID = $(this).val();
+var yearsetID = $('#year').val();
+var makesetID = $('#make').val();
+
+if(modelID){
+    $.ajax({
+        url:'lib/ajaxData.php',
+        type: "POST",
+        data:{
+            "action" : 'getsubmodels',
+            "makeset_id" : makesetID,
+            "yearset_id" : yearsetID,
+            "model_id" : modelID
+        },
+        dataType: "html",
+        success:function(html){
+            if (html) {
+
+                // found a submodel
+                $('#submodel').html(html);
+
+                $('#submodel').on('change',function(){
+                            var submodelID = $(this).val();
+                            var yearsetID = $('#year').val();
+                            var makesetID = $('#make').val();
+                            var modelsetID = $('#model').val();
+
+
+                            $.ajax({
+                                type:'POST',
+                                url:'lib/ajaxData.php',
+                                data: {
+                                    "action" : 'getbodytypes',
+                                    "year": yearsetID,
+                                    "make" : makesetID,
+                                    "model" : modelsetID,
+                                    "submodel" : submodelID
+                                },
+                                success:function(html){
+
+
+                                    // found a bodytype 
+                                    if(html) {
+                                            $('#bodytype').html(html);
+
+                                            $('#bodytype').on('change',function(){
+                                                //more dropdowns
+                                            }
+
+
+                                    }
+                                }
+                            });
+                        });
+                }else{
+
+                            //no submodel
+
+                        }
+                    }
+                }); 
+            }else{
+                $('.product').html('Select Some Values'); 
+            }
+        });
+        </code>
+    </div>
+
+    <div>
+        <a href="https://sunum.armanozak.com/rxjs-ile-asenkron-olay-ve-veri-akislarini-yonetme/#0">
+            Levent Arman Özak Sunum
+        </a>
+    </div>
+</body>
+</html>
