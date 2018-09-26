@@ -95,11 +95,3 @@ export const throwsAnError = () => {
 
 
 
-// start timing
-
-const time = document.querySelector('.ag-timing-value')
-let date = new Date()
-setInterval(() => {
-    date = new Date()
-    time.innerHTML = `${date.getHours()}: ${date.getMinutes()} : ${date.getSeconds()}`
-}, 1000)

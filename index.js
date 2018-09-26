@@ -1,4 +1,6 @@
 console.warn('Script BAŞLADI')
+import {startTimer} from './timer'
+startTimer()
 const veri = document.querySelector('.ag-value')
 const button = document.querySelector('.ag-button')
 
